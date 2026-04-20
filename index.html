@@ -1,516 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>For Anjana 💌</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Anjana 💌</title>
 
-    :root {
-      --pink-1: #ffd9ea;
-      --pink-2: #ffc2dd;
-      --pink-3: #ff94c2;
-      --pink-4: #ff5fa2;
-      --pink-5: #b83f71;
-      --cream: #fff8fc;
-      --gold: #ffd166;
-      --text: #6e3650;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #ffc1e3, #ffe4f2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
 
-    body {
-      margin: 0;
-      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at top left, #ffd6ec 0%, transparent 28%),
-        radial-gradient(circle at top right, #ffe4f4 0%, transparent 24%),
-        radial-gradient(circle at bottom, #ffd1dc 0%, transparent 28%),
-        linear-gradient(135deg, #ffb6d9, #ffd3e8, #fff0f7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      overflow-x: hidden;
-      position: relative;
-    }
+/* FLOATING HEARTS */
+.hearts span {
+  position: absolute;
+  bottom: -50px;
+  font-size: 22px;
+  animation: float 10s linear infinite;
+}
 
-    .sparkles, .hearts {
-      pointer-events: none;
-      position: fixed;
-      inset: 0;
-      overflow: hidden;
-      z-index: 0;
-    }
+@keyframes float {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateY(-120vh); opacity: 0; }
+}
 
-    .sparkle, .heart {
-      position: absolute;
-      opacity: 0.8;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
-    }
+/* MAIN CARD */
+.card {
+  background: white;
+  border-radius: 25px;
+  padding: 30px;
+  max-width: 700px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 2;
+}
 
-    .sparkle {
-      color: #fff7b2;
-      font-size: 18px;
-      animation-name: twinkleFloat;
-    }
+/* NAME ANIMATION */
+.name {
+  font-size: 60px;
+  font-weight: bold;
+  color: #ff5fa2;
+  text-shadow: 0 0 20px #ff9ec9;
+  animation: glow 2s infinite alternate;
+}
 
-    .heart {
-      color: #ff78b0;
-      font-size: 22px;
-      animation-name: heartFloat;
-    }
+@keyframes glow {
+  from { text-shadow: 0 0 10px #ff9ec9; }
+  to { text-shadow: 0 0 30px #ff5fa2; }
+}
 
-    @keyframes twinkleFloat {
-      0% {
-        transform: translateY(110vh) scale(0.7) rotate(0deg);
-        opacity: 0;
-      }
-      20% {
-        opacity: 0.95;
-      }
-      100% {
-        transform: translateY(-20vh) scale(1.2) rotate(180deg);
-        opacity: 0;
-      }
-    }
+/* DETAILS */
+.details p {
+  margin: 6px 0;
+}
 
-    @keyframes heartFloat {
-      0% {
-        transform: translateY(105vh) translateX(0) scale(0.8);
-        opacity: 0;
-      }
-      15% {
-        opacity: 0.85;
-      }
-      50% {
-        transform: translateY(45vh) translateX(12px) scale(1);
-      }
-      100% {
-        transform: translateY(-15vh) translateX(-10px) scale(1.15);
-        opacity: 0;
-      }
-    }
+/* BUTTONS */
+button {
+  border: none;
+  padding: 14px 22px;
+  margin: 10px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-    .frame {
-      width: 100%;
-      max-width: 980px;
-      background: rgba(255, 247, 251, 0.78);
-      border-radius: 34px;
-      padding: 14px;
-      box-shadow: 0 20px 60px rgba(199, 76, 126, 0.25);
-      position: relative;
-      z-index: 2;
-      border: 3px solid rgba(255,255,255,0.55);
-      overflow: hidden;
-    }
+.accept { background: #ff5fa2; color: white; }
+.deny { background: #ffd6e8; }
 
-    .icon-border {
-      border: 2px solid #f7aacd;
-      border-radius: 28px;
-      padding: 14px;
-      background:
-        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)),
-        linear-gradient(135deg, #ffe4f1, #fff5fa);
-      position: relative;
-    }
+/* QUOTES */
+.quotes {
+  background: #fff0f7;
+  border-radius: 20px;
+  padding: 18px;
+  margin-top: 15px;
+  font-style: italic;
+}
 
-    .icon-strip {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      color: #d45188;
-      font-size: 1.55rem;
-      line-height: 1;
-      padding: 6px 8px 12px;
-      user-select: none;
-    }
+/* POPUP */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
 
-    .main {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-      background: rgba(255,255,255,0.74);
-      border: 2px solid #ffcfe4;
-      border-radius: 26px;
-      padding: 28px 22px;
-      position: relative;
-    }
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+}
 
-    .tag {
-      justify-self: center;
-      background: #ffeff7;
-      color: #c84c7e;
-      padding: 8px 16px;
-      border-radius: 999px;
-      font-size: 0.95rem;
-      font-weight: bold;
-      box-shadow: 0 6px 16px rgba(200, 76, 126, 0.1);
-    }
-
-    .intro {
-      text-align: center;
-      color: var(--text);
-    }
-
-    .intro-top {
-      font-size: clamp(1.7rem, 3vw, 2.6rem);
-      line-height: 1.25;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .name-glow {
-      display: block;
-      font-size: clamp(3rem, 8vw, 6rem);
-      font-weight: 900;
-      line-height: 1;
-      margin: 10px 0;
-      color: #ff72ad;
-      text-shadow:
-        0 0 8px rgba(255,255,255,0.95),
-        0 0 18px rgba(255,140,190,0.9),
-        0 0 32px rgba(255,95,162,0.55);
-      animation: pulseGlow 2.2s ease-in-out infinite;
-      letter-spacing: 1px;
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% {
-        transform: scale(1);
-        text-shadow:
-          0 0 8px rgba(255,255,255,0.95),
-          0 0 18px rgba(255,140,190,0.9),
-          0 0 32px rgba(255,95,162,0.55);
-      }
-      50% {
-        transform: scale(1.04);
-        text-shadow:
-          0 0 10px rgba(255,255,255,1),
-          0 0 24px rgba(255,140,190,1),
-          0 0 40px rgba(255,95,162,0.75);
-      }
-    }
-
-    .subtitle {
-      max-width: 680px;
-      margin: 0 auto;
-      line-height: 1.75;
-      font-size: 1.08rem;
-      color: #8a4965;
-    }
-
-    .message {
-      background: #fff6fb;
-      border-radius: 24px;
-      padding: 22px;
-      text-align: center;
-      color: var(--text);
-      line-height: 1.8;
-      border: 2px dashed #ffc4df;
-      font-size: 1.08rem;
-    }
-
-    .details {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 14px;
-    }
-
-    .detail-box {
-      background: white;
-      border-radius: 22px;
-      padding: 18px;
-      box-shadow: 0 8px 24px rgba(209, 110, 154, 0.12);
-      border: 1px solid #ffe0ee;
-      text-align: center;
-    }
-
-    .detail-box h3 {
-      margin: 0 0 8px;
-      color: #c84c7e;
-      font-size: 1.02rem;
-    }
-
-    .detail-box p {
-      margin: 0;
-      color: #6f3951;
-      line-height: 1.6;
-      font-size: 1rem;
-    }
-
-    .music-note {
-      background: #fff1f8;
-      border: 1px solid #ffd2e6;
-      color: #9f5071;
-      border-radius: 18px;
-      padding: 14px 16px;
-      text-align: center;
-      font-size: 0.96rem;
-      line-height: 1.6;
-    }
-
-    .buttons-wrap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 92px;
-      position: relative;
-      margin-top: 6px;
-    }
-
-    .buttons-area {
-      width: 100%;
-      max-width: 760px;
-      min-height: 92px;
-      position: relative;
-    }
-
-    .btn {
-      border: none;
-      border-radius: 999px;
-      padding: 15px 24px;
-      font-size: 1rem;
-      font-weight: 800;
-      cursor: pointer;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.2s ease;
-      box-shadow: 0 10px 20px rgba(184, 63, 113, 0.15);
-      position: absolute;
-      white-space: nowrap;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-    }
-
-    .accept {
-      left: 8%;
-      top: 12px;
-      background: linear-gradient(135deg, #ff5fa2, #ff86b7);
-      color: white;
-    }
-
-    .deny {
-      left: 39%;
-      top: 12px;
-      background: #ffdfea;
-      color: #b83f71;
-    }
-
-    .hate {
-      right: 8%;
-      top: 12px;
-      background: linear-gradient(135deg, #ffd166, #ffbf47);
-      color: #7a4300;
-    }
-
-    #response {
-      margin-top: 10px;
-      text-align: center;
-      font-size: 1.08rem;
-      font-weight: bold;
-      color: #a13867;
-      min-height: 34px;
-    }
-
-    .footer-note {
-      text-align: center;
-      font-size: 0.95rem;
-      color: #9b5a77;
-      margin-top: 2px;
-    }
-
-    @media (max-width: 760px) {
-      .main {
-        padding: 22px 16px;
-      }
-
-      .buttons-wrap {
-        min-height: 210px;
-      }
-
-      .buttons-area {
-        min-height: 210px;
-      }
-
-      .accept {
-        left: 50%;
-        transform: translateX(-50%);
-        top: 0;
-      }
-
-      .deny {
-        left: 50%;
-        transform: translateX(-50%);
-        top: 68px;
-      }
-
-      .hate {
-        left: 50%;
-        right: auto;
-        transform: translateX(-50%);
-        top: 136px;
-      }
-    }
-  </style>
+</style>
 </head>
+
 <body>
-  <div class="sparkles" id="sparkles"></div>
-  <div class="hearts" id="hearts"></div>
 
-  <div class="frame">
-    <div class="icon-border">
-      <div class="icon-strip">🌸 🎬 📺 🌭 🍿 🍈 🍡 👕 🌸 🎬 📺 🌭 🍿 🍈 🍡 👕 🌸</div>
+<div class="hearts">
+  <span style="left:10%">💖</span>
+  <span style="left:30%">💕</span>
+  <span style="left:50%">💗</span>
+  <span style="left:70%">💞</span>
+  <span style="left:90%">💘</span>
+</div>
 
-      <div class="main">
-        <div class="tag">A special invitation for Anjana 💌</div>
+<div class="card">
 
-        <div class="intro">
-          <div class="intro-top">
-            Arjun would like to invite his melon
-          </div>
-          <span class="name-glow">Anjana</span>
-          <div class="intro-top">
-            to their first ever date 💖
-          </div>
-        </div>
+<h2>Arjun would like to invite his melon</h2>
+<div class="name">Anjana</div>
+<h2>to their first ever date 💖</h2>
 
-        <p class="subtitle">
-          I made this little invite for you because asking you normally just didn’t feel cute enough.
-          You deserve something a bit more special than a plain message.
-        </p>
+<p>I made this just for you… because asking normally wasn’t enough 💌</p>
 
-        <div class="message">
-          After over a month of FaceTime calls and messages, we have finally found time
-          to make our two crazy little souls meet. I can’t wait for us to finally show
-          our crazy cuteness in person 💗
-        </div>
+<div class="quotes">
+  <p>“Honey, I would walk through fire for you,<br>Just let me adore you.” 💖</p>
+  <p>“You’re so golden, I’m out of my head and I don’t know why.” ✨</p>
+</div>
 
-        <div class="details">
-          <div class="detail-box">
-            <h3>📅 Date</h3>
-            <p>02/05/2026</p>
-          </div>
+<div class="details">
+<p>📅 02/05/2026</p>
+<p>📍 Canary Wharf, London</p>
+<p>⏰ Around 3PM</p>
+<p>👗 Comfortable but cute</p>
+<p>🍴 Food decided on the day</p>
+</div>
 
-          <div class="detail-box">
-            <h3>📍 Meeting Spot</h3>
-            <p>Canary Wharf, London</p>
-          </div>
+<button class="accept" onclick="accept()">Accept 💕</button>
+<button class="deny" id="denyBtn">Deny 💔</button>
 
-          <div class="detail-box">
-            <h3>⏰ Time</h3>
-            <p>Around 3:00 PM</p>
-          </div>
+</div>
 
-          <div class="detail-box">
-            <h3>👗 Dress Code</h3>
-            <p>Comfortable but cute</p>
-          </div>
-
-          <div class="detail-box">
-            <h3>🍴 Food</h3>
-            <p>Will be decided on the day</p>
-          </div>
-        </div>
-
-        <div class="music-note">
-          🎶 Music idea: add an official embed or a song file you have rights to use here later.
-        </div>
-
-        <div class="buttons-wrap">
-          <div class="buttons-area" id="buttonsArea">
-            <button class="btn accept" onclick="replyYes()">Accept 💕</button>
-            <button class="btn deny" id="denyBtn">Deny 💔</button>
-            <button class="btn hate" onclick="replyHate()">u hate me 😏</button>
-          </div>
-        </div>
-
-        <div id="response">Your response will appear here 🥰</div>
-
-        <div class="footer-note">
-          Made with butterflies, excitement, and a little bit of chaos 💞
-        </div>
-      </div>
-
-      <div class="icon-strip">🌸 👕 🍡 🍈 🍿 🌭 📺 🎬 🌸 👕 🍡 🍈 🍿 🌭 📺 🎬 🌸</div>
-    </div>
+<!-- POPUP -->
+<div class="modal" id="popup">
+  <div class="modal-content">
+    <h2>YOU ARE GOING ON A DATE MY LOVE! 💖</h2>
+    <p>(I hope to live up to all of your expectations)</p>
+    <button onclick="closePopup()">Close</button>
   </div>
+</div>
 
-  <script>
-    const responseEl = document.getElementById("response");
-    const denyBtn = document.getElementById("denyBtn");
-    const buttonsArea = document.getElementById("buttonsArea");
+<script>
 
-    function replyYes() {
-      responseEl.textContent = "YESSS 💖 It’s officially a date. Arjun, do not fumble this.";
-    }
+/* ACCEPT */
+function accept() {
+  document.getElementById("popup").style.display = "flex";
+}
 
-    function replyHate() {
-      responseEl.textContent = "Wowww 😏 so you clicked 'u hate me'... I still think you’re cute though.";
-    }
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
 
-    // Runaway deny button
-    function moveDenyButton() {
-      const areaRect = buttonsArea.getBoundingClientRect();
-      const btnRect = denyBtn.getBoundingClientRect();
+/* RUNAWAY DENY */
+const denyBtn = document.getElementById("denyBtn");
 
-      const maxX = areaRect.width - btnRect.width;
-      const maxY = areaRect.height - btnRect.height;
+denyBtn.addEventListener("mouseover", () => {
+  const x = Math.random() * window.innerWidth * 0.7;
+  const y = Math.random() * window.innerHeight * 0.7;
+  denyBtn.style.position = "absolute";
+  denyBtn.style.left = x + "px";
+  denyBtn.style.top = y + "px";
+});
 
-      const randomX = Math.max(0, Math.random() * maxX);
-      const randomY = Math.max(0, Math.random() * maxY);
+</script>
 
-      denyBtn.style.left = randomX + "px";
-      denyBtn.style.top = randomY + "px";
-      denyBtn.style.right = "auto";
-      denyBtn.style.transform = "none";
-
-      const teasingLines = [
-        "AHT AHT 😌 denying is not that easy.",
-        "Nopeee 💨 that button’s shy.",
-        "Try again 😭 the deny button ran away.",
-        "That option is unavailable right now 🤭",
-        "Be serious and press Accept 💖"
-      ];
-      responseEl.textContent = teasingLines[Math.floor(Math.random() * teasingLines.length)];
-    }
-
-    denyBtn.addEventListener("mouseenter", moveDenyButton);
-    denyBtn.addEventListener("click", moveDenyButton);
-    denyBtn.addEventListener("touchstart", function(e) {
-      e.preventDefault();
-      moveDenyButton();
-    }, { passive: false });
-
-    // Floating hearts
-    const hearts = document.getElementById("hearts");
-    for (let i = 0; i < 18; i++) {
-      const el = document.createElement("div");
-      el.className = "heart";
-      el.textContent = ["💖", "💕", "💗", "💞"][Math.floor(Math.random() * 4)];
-      el.style.left = Math.random() * 100 + "vw";
-      el.style.animationDuration = (8 + Math.random() * 8) + "s";
-      el.style.animationDelay = (Math.random() * 10) + "s";
-      el.style.fontSize = (16 + Math.random() * 18) + "px";
-      hearts.appendChild(el);
-    }
-
-    // Sparkles
-    const sparkles = document.getElementById("sparkles");
-    for (let i = 0; i < 24; i++) {
-      const el = document.createElement("div");
-      el.className = "sparkle";
-      el.textContent = ["✨", "⭐", "✦"][Math.floor(Math.random() * 3)];
-      el.style.left = Math.random() * 100 + "vw";
-      el.style.animationDuration = (7 + Math.random() * 8) + "s";
-      el.style.animationDelay = (Math.random() * 10) + "s";
-      el.style.fontSize = (12 + Math.random() * 14) + "px";
-      sparkles.appendChild(el);
-    }
-  </script>
 </body>
 </html>
