@@ -1,180 +1,553 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Anjana 💌</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Anjana 💌</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<style>
-body {
-  margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background: linear-gradient(135deg, #ffc1e3, #ffe4f2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  overflow: hidden;
-}
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, #ffd6ec 0%, transparent 28%),
+        radial-gradient(circle at top right, #ffe4f4 0%, transparent 24%),
+        radial-gradient(circle at bottom, #ffd1dc 0%, transparent 28%),
+        linear-gradient(135deg, #ffb6d9, #ffd3e8, #fff0f7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-/* FLOATING HEARTS */
-.hearts span {
-  position: absolute;
-  bottom: -50px;
-  font-size: 22px;
-  animation: float 10s linear infinite;
-}
+    .sparkles,
+    .hearts {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
 
-@keyframes float {
-  0% { transform: translateY(0); opacity: 0; }
-  10% { opacity: 1; }
-  100% { transform: translateY(-120vh); opacity: 0; }
-}
+    .sparkle,
+    .heart {
+      position: absolute;
+      opacity: 0.8;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
 
-/* MAIN CARD */
-.card {
-  background: white;
-  border-radius: 25px;
-  padding: 30px;
-  max-width: 700px;
-  text-align: center;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-  position: relative;
-  z-index: 2;
-}
+    .sparkle {
+      color: #fff4a8;
+      font-size: 18px;
+      animation-name: sparkleFloat;
+    }
 
-/* NAME ANIMATION */
-.name {
-  font-size: 60px;
-  font-weight: bold;
-  color: #ff5fa2;
-  text-shadow: 0 0 20px #ff9ec9;
-  animation: glow 2s infinite alternate;
-}
+    .heart {
+      color: #ff76ad;
+      font-size: 22px;
+      animation-name: heartFloat;
+    }
 
-@keyframes glow {
-  from { text-shadow: 0 0 10px #ff9ec9; }
-  to { text-shadow: 0 0 30px #ff5fa2; }
-}
+    @keyframes sparkleFloat {
+      0% {
+        transform: translateY(110vh) scale(0.7);
+        opacity: 0;
+      }
+      15% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-20vh) scale(1.2) rotate(180deg);
+        opacity: 0;
+      }
+    }
 
-/* DETAILS */
-.details p {
-  margin: 6px 0;
-}
+    @keyframes heartFloat {
+      0% {
+        transform: translateY(110vh) translateX(0);
+        opacity: 0;
+      }
+      15% {
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(-20vh) translateX(18px);
+        opacity: 0;
+      }
+    }
 
-/* BUTTONS */
-button {
-  border: none;
-  padding: 14px 22px;
-  margin: 10px;
-  border-radius: 30px;
-  cursor: pointer;
-  font-weight: bold;
-}
+    .frame {
+      width: 100%;
+      max-width: 980px;
+      background: rgba(255, 247, 251, 0.82);
+      border-radius: 34px;
+      padding: 14px;
+      box-shadow: 0 20px 60px rgba(199, 76, 126, 0.22);
+      position: relative;
+      z-index: 2;
+      border: 3px solid rgba(255,255,255,0.6);
+    }
 
-.accept { background: #ff5fa2; color: white; }
-.deny { background: #ffd6e8; }
+    .icon-border {
+      border: 2px solid #f7aacd;
+      border-radius: 28px;
+      padding: 14px;
+      background: linear-gradient(135deg, #ffe4f1, #fff5fa);
+    }
 
-/* QUOTES */
-.quotes {
-  background: #fff0f7;
-  border-radius: 20px;
-  padding: 18px;
-  margin-top: 15px;
-  font-style: italic;
-}
+    .icon-strip {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: #d45188;
+      font-size: 1.55rem;
+      line-height: 1;
+      padding: 6px 8px 12px;
+      user-select: none;
+    }
 
-/* POPUP */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: none;
-  justify-content: center;
-  align-items: center;
-}
+    .card {
+      background: rgba(255,255,255,0.82);
+      border: 2px solid #ffcfe4;
+      border-radius: 26px;
+      padding: 30px 24px;
+      text-align: center;
+      position: relative;
+    }
 
-.modal-content {
-  background: white;
-  padding: 30px;
-  border-radius: 20px;
-  text-align: center;
-}
+    .tag {
+      display: inline-block;
+      background: #ffeff7;
+      color: #c84c7e;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      box-shadow: 0 6px 16px rgba(200, 76, 126, 0.1);
+      margin-bottom: 16px;
+    }
 
-</style>
+    .intro-top {
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
+      line-height: 1.25;
+      font-weight: 700;
+      color: #6e3650;
+      margin-bottom: 4px;
+    }
+
+    .name {
+      display: block;
+      font-size: clamp(3rem, 8vw, 5.8rem);
+      font-weight: 900;
+      line-height: 1;
+      margin: 10px 0;
+      color: #ff72ad;
+      text-shadow:
+        0 0 8px rgba(255,255,255,0.95),
+        0 0 18px rgba(255,140,190,0.9),
+        0 0 32px rgba(255,95,162,0.55);
+      animation: glowPulse 2.2s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.04);
+      }
+    }
+
+    .subtitle {
+      max-width: 700px;
+      margin: 0 auto 20px;
+      line-height: 1.75;
+      font-size: 1.05rem;
+      color: #8a4965;
+    }
+
+    .quotes {
+      background: #fff0f7;
+      border: 1px solid #ffd7ea;
+      border-radius: 20px;
+      padding: 18px;
+      margin: 18px 0;
+      color: #7a3e59;
+      font-style: italic;
+      line-height: 1.7;
+    }
+
+    .quotes p {
+      margin: 10px 0;
+    }
+
+    .message {
+      background: #fff6fb;
+      border-radius: 24px;
+      padding: 22px;
+      text-align: center;
+      color: #6e3650;
+      line-height: 1.8;
+      border: 2px dashed #ffc4df;
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+    }
+
+    .details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .detail-box {
+      background: white;
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: 0 8px 24px rgba(209, 110, 154, 0.12);
+      border: 1px solid #ffe0ee;
+      text-align: center;
+    }
+
+    .detail-box h3 {
+      margin: 0 0 8px;
+      color: #c84c7e;
+      font-size: 1rem;
+    }
+
+    .detail-box p {
+      margin: 0;
+      color: #6f3951;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    .buttons-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 110px;
+      position: relative;
+      margin-top: 8px;
+    }
+
+    .buttons-area {
+      width: 100%;
+      max-width: 760px;
+      min-height: 110px;
+      position: relative;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 15px 28px;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      box-shadow: 0 10px 20px rgba(184, 63, 113, 0.15);
+      position: absolute;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .accept {
+      left: 24%;
+      top: 16px;
+      background: linear-gradient(135deg, #ff5fa2, #ff86b7);
+      color: white;
+    }
+
+    .deny {
+      left: 54%;
+      top: 16px;
+      background: #ffdfea;
+      color: #b83f71;
+    }
+
+    #response {
+      margin-top: 8px;
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: bold;
+      color: #a13867;
+      min-height: 32px;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #9b5a77;
+      margin-top: 8px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(113, 37, 71, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 20;
+      backdrop-filter: blur(6px);
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 540px;
+      background: linear-gradient(180deg, #fff9fc, #ffeef7);
+      border: 2px solid #ffc9df;
+      border-radius: 28px;
+      padding: 30px 24px;
+      text-align: center;
+      box-shadow: 0 18px 50px rgba(148, 48, 93, 0.28);
+      animation: popIn 0.28s ease;
+    }
+
+    .modal h2 {
+      margin: 0 0 14px;
+      font-size: clamp(1.8rem, 4vw, 2.3rem);
+      color: #c43d78;
+      line-height: 1.2;
+    }
+
+    .modal p {
+      margin: 0 0 22px;
+      color: #7d4661;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .close-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 13px 22px;
+      background: linear-gradient(135deg, #ff5fa2, #ff86b7);
+      color: white;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(184, 63, 113, 0.16);
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: scale(0.88);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 760px) {
+      body {
+        padding: 14px;
+      }
+
+      .card {
+        padding: 22px 16px;
+      }
+
+      .buttons-wrap {
+        min-height: 170px;
+      }
+
+      .buttons-area {
+        min-height: 170px;
+      }
+
+      .accept {
+        left: 50%;
+        transform: translateX(-50%);
+        top: 0;
+      }
+
+      .deny {
+        left: 50%;
+        transform: translateX(-50%);
+        top: 76px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="sparkles" id="sparkles"></div>
+  <div class="hearts" id="hearts"></div>
 
-<div class="hearts">
-  <span style="left:10%">💖</span>
-  <span style="left:30%">💕</span>
-  <span style="left:50%">💗</span>
-  <span style="left:70%">💞</span>
-  <span style="left:90%">💘</span>
-</div>
+  <div class="frame">
+    <div class="icon-border">
+      <div class="icon-strip">🌸 🎬 📺 🌭 🍿 🍈 🍡 👕 🌸 🎬 📺 🌭 🍿 🍈 🍡 👕 🌸</div>
 
-<div class="card">
+      <div class="card">
+        <div class="tag">A special invitation for Anjana 💌</div>
 
-<h2>Arjun would like to invite his melon</h2>
-<div class="name">Anjana</div>
-<h2>to their first ever date 💖</h2>
+        <div class="intro-top">Arjun would like to invite his melon</div>
+        <span class="name">Anjana</span>
+        <div class="intro-top">to their first ever date 💖</div>
 
-<p>I made this just for you… because asking normally wasn’t enough 💌</p>
+        <p class="subtitle">
+          I made this little invite for you because asking you normally just didn’t feel cute enough.
+          You deserve something a bit more special than a plain message.
+        </p>
 
-<div class="quotes">
-  <p>“Honey, I would walk through fire for you,<br>Just let me adore you.” 💖</p>
-  <p>“You’re so golden, I’m out of my head and I don’t know why.” ✨</p>
-</div>
+        <div class="quotes">
+          <p>“Honey, I would walk through fire for you,<br>Just let me adore you.” 💖</p>
+          <p>“You’re so golden, I’m out of my head and I don’t know why.” ✨</p>
+        </div>
 
-<div class="details">
-<p>📅 02/05/2026</p>
-<p>📍 Canary Wharf, London</p>
-<p>⏰ Around 3PM</p>
-<p>👗 Comfortable but cute</p>
-<p>🍴 Food decided on the day</p>
-</div>
+        <div class="message">
+          After over a month of FaceTime calls and messages, we have finally found time
+          to make our two crazy little souls meet. I can’t wait for us to finally show
+          our crazy cuteness in person 💗
+        </div>
 
-<button class="accept" onclick="accept()">Accept 💕</button>
-<button class="deny" id="denyBtn">Deny 💔</button>
+        <div class="details">
+          <div class="detail-box">
+            <h3>📅 Date</h3>
+            <p>02/05/2026</p>
+          </div>
 
-</div>
+          <div class="detail-box">
+            <h3>📍 Meeting Spot</h3>
+            <p>Canary Wharf, London</p>
+          </div>
 
-<!-- POPUP -->
-<div class="modal" id="popup">
-  <div class="modal-content">
-    <h2>YOU ARE GOING ON A DATE MY LOVE! 💖</h2>
-    <p>(I hope to live up to all of your expectations)</p>
-    <button onclick="closePopup()">Close</button>
+          <div class="detail-box">
+            <h3>⏰ Time</h3>
+            <p>Around 3:00 PM</p>
+          </div>
+
+          <div class="detail-box">
+            <h3>👗 Dress Code</h3>
+            <p>Comfortable but cute</p>
+          </div>
+
+          <div class="detail-box">
+            <h3>🍴 Food</h3>
+            <p>Will be decided on the day</p>
+          </div>
+        </div>
+
+        <div class="buttons-wrap">
+          <div class="buttons-area" id="buttonsArea">
+            <button class="btn accept" onclick="replyYes()">Accept 💕</button>
+            <button class="btn deny" id="denyBtn">Deny 💔</button>
+          </div>
+        </div>
+
+        <div id="response">Your response will appear here 🥰</div>
+
+        <div class="footer-note">
+          Made with butterflies, excitement, and a little bit of chaos 💞
+        </div>
+      </div>
+
+      <div class="icon-strip">🌸 👕 🍡 🍈 🍿 🌭 📺 🎬 🌸 👕 🍡 🍈 🍿 🌭 📺 🎬 🌸</div>
+    </div>
   </div>
-</div>
 
-<script>
+  <div class="modal-overlay" id="acceptModal">
+    <div class="modal">
+      <h2>YOU ARE GOING ON A DATE MY LOVE! 💖</h2>
+      <p>(I hope to uphold all of your expectations)</p>
+      <button class="close-btn" onclick="closeModal()">Close ✨</button>
+    </div>
+  </div>
 
-/* ACCEPT */
-function accept() {
-  document.getElementById("popup").style.display = "flex";
-}
+  <script>
+    const responseEl = document.getElementById("response");
+    const denyBtn = document.getElementById("denyBtn");
+    const buttonsArea = document.getElementById("buttonsArea");
+    const acceptModal = document.getElementById("acceptModal");
 
-function closePopup() {
-  document.getElementById("popup").style.display = "none";
-}
+    function replyYes() {
+      responseEl.textContent = "Accepted 💕 This is already my favourite yes.";
+      acceptModal.classList.add("show");
+    }
 
-/* RUNAWAY DENY */
-const denyBtn = document.getElementById("denyBtn");
+    function closeModal() {
+      acceptModal.classList.remove("show");
+    }
 
-denyBtn.addEventListener("mouseover", () => {
-  const x = Math.random() * window.innerWidth * 0.7;
-  const y = Math.random() * window.innerHeight * 0.7;
-  denyBtn.style.position = "absolute";
-  denyBtn.style.left = x + "px";
-  denyBtn.style.top = y + "px";
-});
+    acceptModal.addEventListener("click", function(e) {
+      if (e.target === acceptModal) {
+        closeModal();
+      }
+    });
 
-</script>
+    function moveDenyButton() {
+      const areaRect = buttonsArea.getBoundingClientRect();
+      const btnRect = denyBtn.getBoundingClientRect();
 
+      const maxX = areaRect.width - btnRect.width;
+      const maxY = areaRect.height - btnRect.height;
+
+      const randomX = Math.max(0, Math.random() * maxX);
+      const randomY = Math.max(0, Math.random() * maxY);
+
+      denyBtn.style.left = randomX + "px";
+      denyBtn.style.top = randomY + "px";
+      denyBtn.style.right = "auto";
+      denyBtn.style.transform = "none";
+
+      const teasingLines = [
+        "AHT AHT 😌 denying is not that easy.",
+        "Nopeee 💨 that button’s shy.",
+        "Try again 😭 the deny button ran away.",
+        "That option is unavailable right now 🤭",
+        "Be serious and press Accept 💖"
+      ];
+      responseEl.textContent = teasingLines[Math.floor(Math.random() * teasingLines.length)];
+    }
+
+    denyBtn.addEventListener("mouseenter", moveDenyButton);
+    denyBtn.addEventListener("click", moveDenyButton);
+    denyBtn.addEventListener("touchstart", function(e) {
+      e.preventDefault();
+      moveDenyButton();
+    }, { passive: false });
+
+    const hearts = document.getElementById("hearts");
+    for (let i = 0; i < 18; i++) {
+      const el = document.createElement("div");
+      el.className = "heart";
+      el.textContent = ["💖", "💕", "💗", "💞"][Math.floor(Math.random() * 4)];
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.animationDuration = (8 + Math.random() * 8) + "s";
+      el.style.animationDelay = (Math.random() * 10) + "s";
+      el.style.fontSize = (16 + Math.random() * 18) + "px";
+      hearts.appendChild(el);
+    }
+
+    const sparkles = document.getElementById("sparkles");
+    for (let i = 0; i < 24; i++) {
+      const el = document.createElement("div");
+      el.className = "sparkle";
+      el.textContent = ["✨", "⭐", "✦"][Math.floor(Math.random() * 3)];
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.animationDuration = (7 + Math.random() * 8) + "s";
+      el.style.animationDelay = (Math.random() * 10) + "s";
+      el.style.fontSize = (12 + Math.random() * 14) + "px";
+      sparkles.appendChild(el);
+    }
+  </script>
 </body>
 </html>
